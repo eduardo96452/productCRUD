@@ -1,0 +1,16 @@
+﻿@model productCRUD.Models.Task
+
+<h1>Añadir nueva tarea</h1>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label for="Title">Titulo</label>
+        <input type="text" id="Title" name="Title" value="@Model?.Title" required />
+    </div>
+    <div>
+        <label for="IsCompleted">Está completada?</label>
+        <input type="checkbox" id="IsCompleted" name="IsCompleted" />
+    </div>
+    <button type="submit">Guardar</button>
+    <a href="@Url.Action("Index", "Home")">Cancelar</a>
+</form>

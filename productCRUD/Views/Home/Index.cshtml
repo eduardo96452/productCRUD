@@ -1,0 +1,27 @@
+﻿@model IEnumerable<productCRUD.Models.Task>
+
+<h1>Tareas</h1>
+<a href="@Url.Action("Create")">Crear nueva tarea</a>
+
+<table>
+    <thead>
+        <tr>
+            <th>Titulo</th>
+            <th>Está completada?</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>
+                <td>@task.Title</td>
+                <td>@task.IsCompleted</td>
+                <td>
+                    <a href="@Url.Action("Edit", new { id = task.Id })">Editar</a> |
+                    <a href="@Url.Action("Delete", new { id = task.Id })">Borrar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

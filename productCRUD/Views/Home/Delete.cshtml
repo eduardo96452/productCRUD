@@ -1,0 +1,18 @@
+﻿@model productCRUD.Models.Task
+
+<h1>Borrar Tarea</h1>
+
+<p>¿Estás seguro de que deseas eliminar esta tarea?</p>
+
+<div>
+    <strong>Titulo:</strong> @Model.Title
+</div>
+<div>
+    <strong>Esta Completada:</strong> @(Model.IsCompleted ? "Yes" : "No")
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+    <button type="submit">Borar</button>
+    <a href="@Url.Action("Index", "Home")">Cancelar</a>
+</form>

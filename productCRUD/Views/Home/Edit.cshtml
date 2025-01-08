@@ -1,0 +1,18 @@
+﻿@model productCRUD.Models.Task
+
+<h1>Editar tarea</h1>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+
+    <div>
+        <label for="Title">Titulo</label>
+        <input type="text" id="Title" name="Title" value="@Model.Title" required />
+    </div>
+    <div>
+        <label for="IsCompleted">Esta completada?</label>
+        <input type="checkbox" id="IsCompleted" name="IsCompleted" @(Model.IsCompleted ? "checked" : "") />
+    </div>
+    <button type="submit">Guardar cambios</button>
+    <a href="@Url.Action("Index", "Home")">Cencelar</a>
+</form>
