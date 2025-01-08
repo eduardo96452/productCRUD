@@ -1,0 +1,24 @@
+﻿version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      dotnet: 8.0
+    commands:
+      - echo Installing dependencies...
+      - dotnet restore
+  build:
+    commands:
+      - echo Building the project...
+      - dotnet build --configuration Release
+  post_build:
+    commands:
+      - echo Running tests...
+      - dotnet test
+      - echo Packaging the application...
+      - dotnet publish -c Release -o out
+
+artifacts:
+  files:
+    - out/**
+  discard-paths: no
