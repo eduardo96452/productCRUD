@@ -1,18 +1,20 @@
 ﻿@model productCRUD.Models.Task
 
-<h1>Borrar Tarea</h1>
+<h1><strong>Borrar Tarea</strong></h1>
 
-<p>¿Estás seguro de que deseas eliminar esta tarea?</p>
+<h4>¿Estás seguro de que deseas eliminar esta tarea?</h4>
 
-<div>
-    <strong>Titulo:</strong> @Model.Title
+<div class="mb-3">
+    <label for="disabledTextInput" class="form-label"><strong>Titulo:</strong></label>
+    <input type="text" id="disabledTextInput" class="form-control" placeholder="@Model.Title" disabled>
 </div>
-<div>
-    <strong>Esta Completada:</strong> @(Model.IsCompleted ? "Yes" : "No")
+<div class="mb-3">
+    <label for="disabledTextInput" class="form-label"><strong>Esta Completada:</strong></label>
+    <input type="text" id="disabledTextInput" class="form-control" placeholder="@(Model.IsCompleted ? "Yes" : "No")" disabled>
 </div>
 
 <form asp-action="Delete" method="post">
     <input type="hidden" id="Id" name="Id" value="@Model.Id" />
-    <button type="submit">Borar</button>
-    <a href="@Url.Action("Index", "Home")">Cancelar</a>
+    <button class="btn btn-success" type="submit">Borrar</button>
+    <a class="btn btn-danger" href="@Url.Action("Index", "Home")">Cancelar</a>
 </form>

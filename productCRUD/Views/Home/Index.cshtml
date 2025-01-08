@@ -1,25 +1,27 @@
 ﻿@model IEnumerable<productCRUD.Models.Task>
 
-<h1>Tareas</h1>
-<a href="@Url.Action("Create")">Crear nueva tarea</a>
-
-<table>
-    <thead>
+<h1><strong>Tareas</strong></h1>
+<br />
+<a class="btn btn-primary" href="@Url.Action("Create")">Crear nueva tarea</a>
+<br />
+<br />
+<table class="table table-striped table-hover">
+    <thead class="text-center">
         <tr>
             <th>Titulo</th>
             <th>Está completada?</th>
             <th>Acciones</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         @foreach (var task in Model)
         {
-            <tr>
+            <tr class="table-active">
                 <td>@task.Title</td>
                 <td>@task.IsCompleted</td>
                 <td>
-                    <a href="@Url.Action("Edit", new { id = task.Id })">Editar</a> |
-                    <a href="@Url.Action("Delete", new { id = task.Id })">Borrar</a>
+                    <a type="button" class="btn btn-danger" href="@Url.Action("Edit", new { id = task.Id })">Editar</a> |
+                    <a type="button" class="btn btn-warning" href="@Url.Action("Delete", new { id = task.Id })">Borrar</a>
                 </td>
             </tr>
         }
