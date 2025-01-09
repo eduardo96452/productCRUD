@@ -1,24 +1,41 @@
-﻿version: 0.2
+﻿name: .NET
 
-phases:
-  install:
-    runtime-versions:
-      dotnet: 8.0
-    commands:
-      - echo Installing dependencies...
-      - dotnet restore
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
   build:
-    commands:
-      - echo Building the project...
-      - dotnet build --configuration Release
-  post_build:
-    commands:
-      - echo Running tests...
-      - dotnet test
-      - echo Packaging the application...
-      - dotnet publish -c Release -o out
 
-artifacts:
-  files:
-    - out/**
-  discard-paths: no
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+
+    - name: Publish
+      run: dotnet publish --no-build --configuration Release --output ./publish
+
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'nombre-de-tu-app'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ./publish
