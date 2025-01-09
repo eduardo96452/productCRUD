@@ -1,4 +1,4 @@
-﻿name: .NET
+﻿name: .NET 8 MVC Application
 
 on:
   push:
@@ -7,12 +7,11 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
+    - name: Checkout Code
       uses: actions/checkout@v2
 
     - name: Setup .NET
@@ -20,16 +19,16 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
+    - name: Restore Dependencies
       run: dotnet restore
 
-    - name: Build
+    - name: Build Application
       run: dotnet build --no-restore --configuration Release
 
-    - name: Test
+    - name: Run Tests
       run: dotnet test --no-build --verbosity normal
 
-    - name: Publish
+    - name: Publish Application
       run: dotnet publish --no-build --configuration Release --output ./publish
 
     - name: Deploy to Azure Web App
@@ -39,3 +38,9 @@ jobs:
         slot-name: 'production'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
         package: ./publish
+
+    - name: Configure Supabase Connection
+      run: |
+        echo "Setting up Supabase configuration"
+        echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> ./publish/appsettings.Production.json
+        echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> ./publish/appsettings.Production.json
