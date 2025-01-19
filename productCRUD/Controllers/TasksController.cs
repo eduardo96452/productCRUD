@@ -32,20 +32,20 @@ namespace productCRUD.Controllers
             return RedirectToAction("Index");
         }
 
-        public async Task<IActionResult> Edit(int id)
+       /* public async Task<IActionResult> Edit(int id)
         {
             var client = _supabaseService.GetClient();
             var task = await client.From<Models.Task>().Filter("id", Operator.Equals , id).Single();
             return View(task);
-        }
+        }*/
 
         [HttpPost]
-        public async Task<IActionResult> Edit(Models.Task task)
+        /*public async Task<IActionResult> Edit(Models.Task task)
         {
             var client = _supabaseService.GetClient();
             await client.From<Models.Task>().Update(task);
             return RedirectToAction("Index");
-        }
+        }*/
 
         public async Task<IActionResult> Delete(int id)
         {

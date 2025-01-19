@@ -13,6 +13,6 @@
         <label for="IsCompleted" class="form-check-label">Está completada?</label>
         <input type="checkbox" class="form-check-input" id="IsCompleted" name="IsCompleted" @(Model.IsCompleted ? "checked" : "") />
     </div>
-    <a type="submit" class="btn btn-success">Guardar</a>
+    <button type="submit" class="btn btn-success" >Guardar cambios</button>
     <a class="btn btn-danger" href="@Url.Action("Index", "Home")">Cancelar</a>
 </form>
