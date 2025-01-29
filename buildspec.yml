@@ -2,7 +2,6 @@ version: 0.2
 
 phases:
   install:
-    # Indica la versión de .NET que necesitas (puede ser 6.0, 7.0, 8.0, etc.)
     runtime-versions:
       dotnet: 8.0
     commands:
@@ -11,7 +10,6 @@ phases:
   pre_build:
     commands:
       - echo "Restaurando paquetes .NET..."
-      # Ajusta la ruta de tu .csproj si está en otro lugar
       - dotnet restore productCRUD/productCRUD.csproj
 
   build:
@@ -21,14 +19,12 @@ phases:
 
   post_build:
     commands:
-      # (Opcional) ejecutar pruebas, si tienes un proyecto de test separado:
-      # - dotnet test productCRUD.Tests/productCRUD.Tests.csproj --no-build
-
       - echo "Publicando la aplicación .NET..."
       - dotnet publish productCRUD/productCRUD.csproj --configuration Release --no-build --output productCRUD/published
+      - echo "Listando archivos en la carpeta published..."
+      - ls -R productCRUD/published
 
 artifacts:
-  # Exporta todo el contenido de la carpeta "published"
   files:
-    - productCRUD/published/**/* 
+    - productCRUD/published/**/*
   discard-paths: no
