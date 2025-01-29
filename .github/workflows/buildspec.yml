@@ -1,0 +1,22 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      dotnet: 8.0
+    commands:
+      - echo "Instalando .NET..."
+      # Aquí podrías instalar otras dependencias si hiciera falta
+  build:
+    commands:
+      - echo "Restaurando dependencias..."
+      - dotnet restore productCRUD
+      - echo "Compilando..."
+      - dotnet build productCRUD --configuration Release --no-restore
+      - echo "Publicando..."
+      - dotnet publish productCRUD --configuration Release --no-build --output productCRUD/published
+  post_build:
+    commands:
+      - echo "Build finalizado correctamente."
+artifacts:
+  files:
+    - productCRUD/published/**/* 
