@@ -3,28 +3,34 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      dotnet: 8.0
+      dotnet: 8.0  # Asegúrate de que coincida con el TargetFramework de tu .csproj
     commands:
-      - echo "Instalando dependencias y versiones..."
+      - echo "Instalando SDK de .NET 8.0..."
 
   pre_build:
     commands:
-      - echo "Restaurando paquetes .NET..."
+      - echo "Restaurando paquetes..."
       - dotnet restore productCRUD/productCRUD.csproj
 
   build:
     commands:
-      - echo "Compilando la solución .NET..."
+      - echo "Compilando..."
       - dotnet build productCRUD/productCRUD.csproj --configuration Release --no-restore
 
   post_build:
     commands:
-      - echo "Publicando la aplicación .NET..."
-      - dotnet publish productCRUD/productCRUD.csproj --configuration Release --no-build --output productCRUD/published
-      - echo "Listando archivos en la carpeta published..."
-      - ls -R productCRUD/published
+      - echo "Publicando aplicación..."
+      # Cambia la ruta de salida a una carpeta raíz (evita subdirectorios anidados)
+      - dotnet publish productCRUD/productCRUD.csproj --configuration Release --output published
+      
+      # Verifica que el .runtimeconfig.json exista (agrega diagnóstico)
+      - echo "Contenido de la carpeta published:"
+      - ls -lh published/
+      - echo "Verificando .runtimeconfig.json:"
+      - ls published/*.runtimeconfig.json
 
 artifacts:
   files:
-    - productCRUD/published/**/*
-  discard-paths: no
+    - "**/*"  # Incluye TODO el contenido de la carpeta "published"
+  base-directory: published  # Raíz del artefacto
+  discard-paths: no  # Conserva la estructura de directorios
